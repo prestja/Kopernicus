@@ -248,9 +248,9 @@ namespace Kopernicus.Components.ModularScatter
             for (Int32 i = 0; i < scatterObjects.Count; i++)
             {
                 if (scatterObjects[i])
-                        continue;
-            }
-
+                {
+                    continue;
+                }
                 scatterObjects.RemoveAt(i);
                 i--;
             }
