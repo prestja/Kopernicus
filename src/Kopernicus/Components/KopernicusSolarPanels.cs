@@ -59,7 +59,7 @@ namespace Kopernicus.Components
                     KopernicusStar star = KopernicusStar.CelestialBodies[SP.trackingBody];
                     star.shifter.ApplyPhysics();
 
-                    vessel.solarFlux = star.CalculateFluxAt(vessel) * PhysicsGlobals.SolarLuminosityAtHome / 1360;
+                    vessel.solarFlux = star.CalculateFluxAt(vessel);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace Kopernicus.Components
                     {
                         KopernicusStar trackingStar = KopernicusStar.CelestialBodies[SP.trackingBody];
 
-                        Double bestFlux = vessel.solarFlux * 1360 / PhysicsGlobals.SolarLuminosityAtHome;
+                        Double bestFlux = vessel.solarFlux;
                         KopernicusStar bestStar = trackingStar;
                         Double totalFlux = 0;
                         Single totalAoA = SP.sunAOA;
@@ -124,8 +124,7 @@ namespace Kopernicus.Components
                             {
                                 // Use this star
                                 star.shifter.ApplyPhysics();
-                                double flux = star.CalculateFluxAt(vessel);
-                                vessel.solarFlux += flux * PhysicsGlobals.SolarLuminosityAtHome / 1360;
+                                vessel.solarFlux = star.CalculateFluxAt(vessel);
 
                                 // Change the tracking body
                                 SP.trackingBody = star.sun;
@@ -144,9 +143,9 @@ namespace Kopernicus.Components
                                 _totalFlow += SP._flowRate;
                                 totalFlow += SP.flowRate;
 
-                                if (bestFlux < flux)
+                                if (bestFlux < vessel.solarFlux)
                                 {
-                                    bestFlux = flux;
+                                    bestFlux = vessel.solarFlux;
                                     bestStar = star;
                                 }
 
@@ -162,7 +161,7 @@ namespace Kopernicus.Components
                         // Restore the starting star
                         trackingStar.shifter.ApplyPhysics();
 
-                        totalFlux += trackingStar.CalculateFluxAt(vessel) * PhysicsGlobals.SolarLuminosityAtHome / 1360;
+                        totalFlux += trackingStar.CalculateFluxAt(vessel);
 
                         vessel.solarFlux = totalFlux;
                         SP.sunAOA = totalAoA;

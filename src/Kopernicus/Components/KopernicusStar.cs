@@ -305,7 +305,7 @@ namespace Kopernicus.Components
 
             if (directSunlight)
             {
-                Double output = PhysicsGlobals.SolarLuminosity / (12.5663706143592 * realDistanceToSun * realDistanceToSun);
+                Double output = PhysicsGlobals.SolarLuminosity / (12.5663706143592 * realDistanceToSun * realDistanceToSun) * PhysicsGlobals.SolarLuminosityAtHome / 1360;
                 return output;
             }
 
@@ -339,14 +339,14 @@ namespace Kopernicus.Components
                 star.shifter.ApplyPhysics();
 
                 // Calculate Flux
-                solarFlux += star.CalculateFluxAt(MFI.Vessel) * PhysicsGlobals.SolarLuminosityAtHome / 1360;
+                solarFlux += star.CalculateFluxAt(MFI.Vessel);
             }
 
             // Set Physics to the Current Star
             KopernicusStar.Current.shifter.ApplyPhysics();
 
             // Calculate Flux
-            solarFlux += Current.CalculateFluxAt(MFI.Vessel) * PhysicsGlobals.SolarLuminosityAtHome / 1360;
+            solarFlux += Current.CalculateFluxAt(MFI.Vessel);
 
             // Reapply
             MFI.Vessel.directSunlight = solarFlux > 0;
