@@ -53,7 +53,7 @@ namespace Kopernicus.Constants
                 #else
                 const String DEVELOPMENT_BUILD = "";
                 #endif
-                return "Kopernicus " + VersionNumber + DEVELOPMENT_BUILD + " - (BuildDate: " +
+                return "RTB Kopernicus " + VersionNumber + DEVELOPMENT_BUILD + " - (BuildDate: " +
                        BuiltTime(Assembly.GetCallingAssembly()).ToString("dd.MM.yyyy HH:mm:ss") + "; AssemblyHash: " +
                        AssemblyHandle() + ")";
             }
