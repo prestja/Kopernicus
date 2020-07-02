@@ -283,7 +283,7 @@ namespace Kopernicus.Components
             // Get Thermal Stats
             if (vessel.mainBody.atmosphere && !vessel.mainBody.isStar)
             {
-                if (vessel.mainBody.orbit?.referenceBody != null && vessel.mainBody.orbit.referenceBody == GetBodyReferencing(vessel.mainBody))
+                if (GetBodyReferencing(vessel.mainBody))
                 {
                     FlightIntegrator FI = vessel.GetComponent<FlightIntegrator>();
                     vessel.mainBody.GetAtmoThermalStats(true, sun, sunVector, Vector3d.Dot(sunVector, vessel.upAxis), vessel.upAxis, vessel.altitude, out FI.atmosphereTemperatureOffset, out FI.bodyEmissiveFlux, out FI.bodyAlbedoFlux);
@@ -354,7 +354,7 @@ namespace Kopernicus.Components
         }
 
         /// <summary>
-        /// Returns the <see cref="CelestialBody"/> directly orbiting the parent <see cref="KopernicusStar"/> for a given <see cref="CelestialBody"/>.
+        /// Returns the parent <see cref="KopernicusStar"/> for a given <see cref="CelestialBody"/>.
         /// </summary>
         public static CelestialBody GetBodyReferencing(CelestialBody body)
         {
