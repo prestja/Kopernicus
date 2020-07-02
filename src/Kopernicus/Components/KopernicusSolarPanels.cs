@@ -57,7 +57,9 @@ namespace Kopernicus.Components
                 if (SP != null)
                 {
                     KopernicusStar star = KopernicusStar.CelestialBodies[SP.trackingBody];
-                    star.shifter.ApplyPhysics();
+                    PhysicsGlobals.SolarLuminosityAtHome = star.shifter.solarLuminosity;
+                    PhysicsGlobals.SolarInsolationAtHome = star.shifter.solarInsolation;
+                    KopernicusStar.CalculatePhysics();
 
                     vessel.solarFlux = star.CalculateFluxAt(vessel);
                 }
@@ -123,7 +125,9 @@ namespace Kopernicus.Components
                             if (star != trackingStar)
                             {
                                 // Use this star
-                                star.shifter.ApplyPhysics();
+                                PhysicsGlobals.SolarLuminosityAtHome = star.shifter.solarLuminosity;
+                                PhysicsGlobals.SolarInsolationAtHome = star.shifter.solarInsolation;
+                                KopernicusStar.CalculatePhysics();
                                 vessel.solarFlux = star.CalculateFluxAt(vessel);
 
                                 // Change the tracking body
@@ -159,7 +163,9 @@ namespace Kopernicus.Components
                         SP.GetTrackingBodyTransforms();
 
                         // Restore the starting star
-                        trackingStar.shifter.ApplyPhysics();
+                        PhysicsGlobals.SolarLuminosityAtHome = trackingStar.shifter.solarLuminosity;
+                        PhysicsGlobals.SolarInsolationAtHome = trackingStar.shifter.solarInsolation;
+                        KopernicusStar.CalculatePhysics();
 
                         totalFlux += trackingStar.CalculateFluxAt(vessel);
 
@@ -183,7 +189,9 @@ namespace Kopernicus.Components
                 }
 
                 // Restore The Current Star
-                KopernicusStar.Current.shifter.ApplyPhysics();
+                PhysicsGlobals.SolarLuminosityAtHome = KopernicusStar.Current.shifter.solarLuminosity;
+                PhysicsGlobals.SolarInsolationAtHome = KopernicusStar.Current.shifter.solarInsolation;
+                KopernicusStar.CalculatePhysics();
             }
         }
 

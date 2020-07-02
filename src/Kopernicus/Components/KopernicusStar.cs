@@ -90,6 +90,49 @@ namespace Kopernicus.Components
         public KopernicusSunFlare lensFlare;
 
         /// <summary>
+        /// Fixes the Calculation for Luminosity
+        /// </summary>
+        internal static void CalculatePhysics()
+        {
+            if (!FlightGlobals.ready)
+            {
+                return;
+            }
+
+            if (SolarIntensityAtHomeMultiplier == 0)
+            {
+                CelestialBody homeBody = FlightGlobals.GetHomeBody();
+                if (homeBody == null)
+                {
+                    return;
+                }
+
+                while (Stars.All(s => s.sun != homeBody.referenceBody) && homeBody.referenceBody != null)
+                {
+                    homeBody = homeBody.referenceBody;
+                }
+
+                SolarIntensityAtHomeMultiplier = Math.Pow(homeBody.orbit.semiMajorAxis, 2) * 4 * 3.14159265358979;
+            }
+
+            CalculatePhysics(SolarIntensityAtHomeMultiplier * PhysicsGlobals.SolarLuminosityAtHome);
+        }
+
+        /// <summary>
+        /// Applies The Calculation for Luminosity
+        /// </summary>
+        internal static void CalculatePhysics(Double solarLuminosity)
+        {
+            if (!FlightGlobals.ready)
+            {
+                return;
+            }
+
+            FieldInfo SolarLuminosity = typeof(PhysicsGlobals).GetField("solarLuminosity", BindingFlags.Instance | BindingFlags.NonPublic);
+            SolarLuminosity.SetValue(PhysicsGlobals.Instance, solarLuminosity);
+        }
+
+        /// <summary>
         /// Returns the star the given body orbits
         /// </summary>
         public static KopernicusStar GetNearest(CelestialBody body)
@@ -332,14 +375,18 @@ namespace Kopernicus.Components
                 }
 
                 // Set Physics
-                star.shifter.ApplyPhysics();
+                PhysicsGlobals.SolarLuminosityAtHome = star.shifter.solarLuminosity;
+                PhysicsGlobals.SolarInsolationAtHome = star.shifter.solarInsolation;
+                CalculatePhysics();
 
                 // Calculate Flux
                 solarFlux += star.CalculateFluxAt(MFI.Vessel);
             }
 
             // Set Physics to the Current Star
-            KopernicusStar.Current.shifter.ApplyPhysics();
+            PhysicsGlobals.SolarLuminosityAtHome = KopernicusStar.Current.shifter.solarLuminosity;
+            PhysicsGlobals.SolarInsolationAtHome = KopernicusStar.Current.shifter.solarInsolation;
+            CalculatePhysics();
 
             // Calculate Flux
             solarFlux += Current.CalculateFluxAt(MFI.Vessel);
