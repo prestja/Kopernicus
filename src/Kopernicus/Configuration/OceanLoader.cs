@@ -239,8 +239,8 @@ namespace Kopernicus.Configuration
                     Utility.CopyObjectFields(oceans[i], Value);
 
                     // Create the material (always the same shader)
-                    SurfaceMaterial = new PQSOceanSurfaceQuadLoader();
-                    FallbackMaterial = new PQSOceanSurfaceQuadFallbackLoader();
+                    SurfaceMaterial = new PQSOceanSurfaceQuadLoader(oceans[i].surfaceMaterial);
+                    FallbackMaterial = new PQSOceanSurfaceQuadFallbackLoader(oceans[i].fallbackMaterial);
 
                     break;
                 }
@@ -324,8 +324,8 @@ namespace Kopernicus.Configuration
                     Utility.CopyObjectFields(oceans[i], Value);
 
                     // Create the material (always the same shader)
-                    SurfaceMaterial = new PQSOceanSurfaceQuadLoader();
-                    FallbackMaterial = new PQSOceanSurfaceQuadFallbackLoader();
+                    SurfaceMaterial = new PQSOceanSurfaceQuadLoader(oceans[i].surfaceMaterial);
+                    FallbackMaterial = new PQSOceanSurfaceQuadFallbackLoader(oceans[i].fallbackMaterial);
 
                     break;
                 }
