@@ -214,10 +214,10 @@ namespace Kopernicus.Configuration
         // Wrapper around Ring class for editing/loading
         [ParserTargetCollection("Rings", AllowMerge = true)]
         public List<RingLoader> Rings { get; set; }
-
+        
         [ParserTargetCollection("HazardousBody", AllowMerge = true)]
         public List<HazardousBodyLoader> HazardousBody { get; set; }
-
+        
         // Wrapper around the settings for the SpaceCenter
         [ParserTarget("SpaceCenter", AllowMerge = true)]
         [KittopiaUntouchable]
@@ -261,32 +261,79 @@ namespace Kopernicus.Configuration
             // If we have a template, generatedBody *is* the template body
             if (Template != null && Template.Body)
             {
-                GeneratedBody = Template.Body;
-
-                // Patch the game object names in the template
-                GeneratedBody.name = Name;
-                GeneratedBody.celestialBody.bodyName = Name;
-                GeneratedBody.celestialBody.transform.name = Name;
-                GeneratedBody.scaledVersion.name = Name;
-                if (GeneratedBody.pqsVersion != null)
+                if ((!Template.OriginalBody.scaledVersion.name.Equals("Jool")) || Name.Equals("Jool"))
                 {
-                    GeneratedBody.pqsVersion.name = Name;
-                    GeneratedBody.pqsVersion.gameObject.name = Name;
-                    GeneratedBody.pqsVersion.transform.name = Name;
-                    foreach (PQS p in GeneratedBody.pqsVersion.GetComponentsInChildren<PQS>(true))
+                    GeneratedBody = Template.Body;
+                    // Patch the game object names in the template
+                    GeneratedBody.name = Name;
+                    GeneratedBody.celestialBody.bodyName = Name;
+                    GeneratedBody.celestialBody.transform.name = Name;
+                    GeneratedBody.scaledVersion.name = Name;
+                    if (GeneratedBody.pqsVersion != null)
                     {
-                        p.name = p.name.Replace(Template.Body.celestialBody.bodyName, Name);
+                        GeneratedBody.pqsVersion.name = Name;
+                        GeneratedBody.pqsVersion.gameObject.name = Name;
+                        GeneratedBody.pqsVersion.transform.name = Name;
+                        foreach (PQS p in GeneratedBody.pqsVersion.GetComponentsInChildren<PQS>(true))
+                        {
+                            p.name = p.name.Replace(Template.Body.celestialBody.bodyName, Name);
+                        }
+                        GeneratedBody.celestialBody.pqsController = GeneratedBody.pqsVersion;
+                    }
+
+                    // If we've changed the name, reset use_The_InName
+                    if (GeneratedBody.name != Template.OriginalBody.celestialBody.bodyName)
+                    {
+                        GeneratedBody.celestialBody.bodyDisplayName = GeneratedBody.celestialBody.bodyAdjectiveDisplayName = GeneratedBody.celestialBody.bodyName;
+                    }
+                }
+                else if (Template.OriginalBody.scaledVersion.name.Equals("Jool")) // This is a Jool-clone, a gas giant but not the real Jool.  We have to handle it special.
+                {
+                    // Create the PSystemBody object
+                    GameObject generatedBodyGameObject = new GameObject(Name);
+                    generatedBodyGameObject.transform.parent = Utility.Deactivator;
+                    GeneratedBody = generatedBodyGameObject.AddComponent<PSystemBody>();
+                    GeneratedBody.flightGlobalsIndex = 0;
+                    // Grab the proper celestialBody and set it's type
+                    GeneratedBody.celestialBody = Template.Body.celestialBody;
+                    GeneratedBody.celestialBody.bodyType = Template.Body.celestialBody.bodyType;
+                    // Sensible defaults 
+                    GeneratedBody.celestialBody.bodyName = Name;
+                    GeneratedBody.celestialBody.bodyDisplayName = GeneratedBody.celestialBody.bodyAdjectiveDisplayName = Name;
+                    GeneratedBody.celestialBody.atmosphere = true;
+                    GeneratedBody.celestialBody.hasSolidSurface = false;
+                    GeneratedBody.celestialBody.ocean = false;
+                    //Other setup
+                    GeneratedBody.orbitDriver = Template.Body.orbitDriver;
+                    GeneratedBody.orbitRenderer = Template.Body.orbitRenderer;
+                    GeneratedBody.planetariumCameraInitial = Template.Body.planetariumCameraInitial;
+                    // Patch the game object names in the template
+                    GeneratedBody.name = Name;
+                    GeneratedBody.celestialBody.bodyName = Name;
+                    GeneratedBody.celestialBody.transform.name = Name;
+                    // Create the scaled version
+                    GeneratedBody.scaledVersion = new GameObject(Name) { layer = GameLayers.SCALED_SPACE };
+                    GeneratedBody.scaledVersion.transform.parent = Utility.Deactivator;
+                    if (GeneratedBody.pqsVersion != null)
+                    {
+                        GeneratedBody.pqsVersion.name = Name;
+                        GeneratedBody.pqsVersion.gameObject.name = Name;
+                        GeneratedBody.pqsVersion.transform.name = Name;
+                        foreach (PQS p in GeneratedBody.pqsVersion.GetComponentsInChildren<PQS>(true))
+                        {
+                            p.name = p.name.Replace(Template.Body.celestialBody.bodyName, Name);
+                        }
                     }
                     GeneratedBody.celestialBody.pqsController = GeneratedBody.pqsVersion;
-                }
-
-                // If we've changed the name, reset use_The_InName
-                if (GeneratedBody.name != Template.OriginalBody.celestialBody.bodyName)
-                {
-                    GeneratedBody.celestialBody.bodyDisplayName = GeneratedBody.celestialBody.bodyAdjectiveDisplayName = GeneratedBody.celestialBody.bodyName;
+                    // If we've changed the name, reset use_The_InName
+                    if (GeneratedBody.name != Template.OriginalBody.celestialBody.bodyName)
+                    {
+                        GeneratedBody.celestialBody.bodyDisplayName = GeneratedBody.celestialBody.bodyAdjectiveDisplayName = GeneratedBody.celestialBody.bodyName;
+                    }
+                    GeneratedBody.scaledVersion.AddOrGetComponent<MeshFilter>().sharedMesh = Templates.ReferenceGeosphere;
                 }
             }
-
+            
             // Otherwise we have to generate all the things for this body
             else
             {
