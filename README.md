@@ -6,20 +6,13 @@ February 04, 2020
 * Additional Content by: Gravitasi, aftokino, KCreator, Padishar, Kragrathea, OvenProofMars, zengei, MrHappyFace, Sigma88, Majiir (CompatibilityChecker)
 * Much thanks to Sarbian for ModuleManager and ModularFlightIntegrator
 
-New in this version (1.8.1-1)
+New in this version (1.9.1-6)
 -------------------
-- Updated to KSP 1.8.1
-- Removed HazardousOcean
-- Removed particles support
-- Added Support for new terrain shaders
-- Added a fix for the flags going crazy
-- Improved Kopernicus Solar Panels
-- Improved Space Center Loader
-- Improved HazardousBody
-- Improved ModularScatter HeatEmitter
-- Improved ModularScatter LightEmitter
-- Fixed Tracking Station Atmospheric Info
-- 'displayName' now also changes 'bodyAdjectiveDisplayName'
+- Updated to KSP 1.9.1
+- Numerous bug fixes introduced by 1.9.1 recompile (see release changelog, this is still a prerelease but we get closer to stable every day)
+
+Known bugs right now (release 6):
+Sometimes deployable solar panels can bug out in a multibody environment.  A "fix" is to reload with them undeployed, and only then deploy them.  we are investigating.
 
 Note - reparenting Kerbin or the Sun can cause the sky to be incorrect in the space center view. It is, however, correct in the flight view and the flight map view.
 
