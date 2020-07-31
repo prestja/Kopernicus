@@ -2,8 +2,9 @@
 ==============================
 February 04, 2020
 * Created by: BryceSchroeder and Teknoman117 (aka. Nathaniel R. Lewis)
-* Maintained by: Thomas P., NathanKell and KillAshley
-* Additional Content by: Gravitasi, aftokino, KCreator, Padishar, Kragrathea, OvenProofMars, zengei, MrHappyFace, Sigma88, Majiir (CompatibilityChecker)
+* Actively maintained by: Prestja and R-T-B.
+* Formerly maintained by: Thomas P., NathanKell and KillAshley
+* Additional Content by: Democat3457, Gravitasi, aftokino, KCreator, Padishar, Kragrathea, OvenProofMars, zengei, MrHappyFace, Sigma88, Majiir (CompatibilityChecker)
 * Much thanks to Sarbian for ModuleManager and ModularFlightIntegrator
 
 New in this version (1.9.1-8)
