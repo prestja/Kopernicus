@@ -11,8 +11,9 @@ New in this version (1.9.1-8)
 - Updated to KSP 1.9.1
 - Numerous bug fixes introduced by 1.9.1 recompile (see release changelog, this is still a prerelease but we get closer to stable every day)
 
-Known bugs right now (release 6):
-Sometimes deployable solar panels can bug out in a multibody environment.  A "fix" is to reload with them undeployed, and only then deploy them.  we are investigating.
+Known bugs right now (release 8):
+Issue #26
+Issue #28 (CKAN blocker)
 
 Note - reparenting Kerbin or the Sun can cause the sky to be incorrect in the space center view. It is, however, correct in the flight view and the flight map view.
 
