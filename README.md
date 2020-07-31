@@ -6,7 +6,7 @@ February 04, 2020
 * Additional Content by: Gravitasi, aftokino, KCreator, Padishar, Kragrathea, OvenProofMars, zengei, MrHappyFace, Sigma88, Majiir (CompatibilityChecker)
 * Much thanks to Sarbian for ModuleManager and ModularFlightIntegrator
 
-New in this version (1.9.1-6)
+New in this version (1.9.1-8)
 -------------------
 - Updated to KSP 1.9.1
 - Numerous bug fixes introduced by 1.9.1 recompile (see release changelog, this is still a prerelease but we get closer to stable every day)
