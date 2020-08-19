@@ -9,8 +9,15 @@ February 04, 2020
 
 New in this version (1.9.1-1)
 -------------------
-- Updated to KSP 1.9.1
-- Numerous bug fixes introduced by 1.9.1 recompile (see release changelog)
+1.) Particle support restored.
+
+2.) All 1.9.1 bugs that are known fixed. Full support for 1.9.1
+
+3.) Multistar support. The math on ECs in single star may be slightly different than stock in some situations, but it should be similar in most and not enough to matter.
+
+4.) Stock asteroid generation enabled for Sentinel contracts (can be shutdown for planetpacks or by user, see below)
+
+5.) Added GameData\Kopernicus\Config\Kopernicus_Config.cfg file, with options to configure shader warnings and enable or disable stock asteroid generation. Easy to edit, just look inside!
 
 Note - reparenting Kerbin or the Sun can cause the sky to be incorrect in the space center view. It is, however, correct in the flight view and the flight map view.
 
