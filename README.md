@@ -7,16 +7,10 @@ February 04, 2020
 * Additional Content by: Democat3457, Gravitasi, aftokino, KCreator, Padishar, Kragrathea, OvenProofMars, zengei, MrHappyFace, Sigma88, Majiir (CompatibilityChecker)
 * Much thanks to Sarbian for ModuleManager and ModularFlightIntegrator
 
-New in this version (1.9.1-8)
+New in this version (1.9.1-1)
 -------------------
 - Updated to KSP 1.9.1
-- Numerous bug fixes introduced by 1.9.1 recompile (see release changelog, this is still a prerelease but we get closer to stable every day)
-
-Known bugs right now (release 8):
-
-Issue #26: https://github.com/prestja/Kopernicus/issues/26
-
-Issue #28 (CKAN blocker): https://github.com/prestja/Kopernicus/issues/28
+- Numerous bug fixes introduced by 1.9.1 recompile (see release changelog)
 
 Note - reparenting Kerbin or the Sun can cause the sky to be incorrect in the space center view. It is, however, correct in the flight view and the flight map view.
 
